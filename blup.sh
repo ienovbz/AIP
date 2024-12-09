@@ -11,15 +11,18 @@ VERSION=2.0
 MMCDEV=/dev/mmcblk3
 UBOOT_ENV_FILE=/mnt/env/uboot.env
 
-fetch () {
-	echo fetching $1 from $2 .....
+#tftphost="https://github.com/ienovbz/AIP/raw/refs/heads/main"
 
-	tftp -g -r $1 $2
-	if test $? -eq 1; then
-		echo -e "${RED}tftp error, stopping script ${NC}"
-		exit 1
-	fi
-	echo -e "${GREEN}OK${NC}"
+fetch () {
+    echo "fetching $1 from $2 ....."
+    curl -L -O $2/$1
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}curl download error, stopping script ${NC}"
+        exit 1
+    fi
+    echo -e "${GREEN}OK${NC}"
+    echo -e "curl -O $2$1"
+
 }
 
 wait_user (){
@@ -233,16 +236,17 @@ if ! test -e /mnt/tmp/core-image-base-albireo.ext4.gz; then
 	mount ${MMCDEV}p6 /mnt/tmp
 	cd /mnt/tmp
 
-	#this script is called by the PoE watchdog, update everything	
-	fetch IMX6SOLOX/core-image-base-albireo.ext4.gz $tftphost
-	fetch IMX6SOLOX/SPL-albireo $tftphost
-	fetch IMX6SOLOX/u-boot-albireo.img $tftphost
-	fetch IMX6SOLOX/uboot_version.txt $tftphost
+	#this script is called by the PoE watchdog, update everything
+	#fetch "filename.txt" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"	
+	fetch "core-image-base-albireo.ext4.gz" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "SPL-albireo" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "u-boot-albireo.img" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "uboot_version.txt" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
 
-	fetch IMX6SOLOX/pv $tftphost
-	fetch IMX6SOLOX/resize2fs $tftphost
-	fetch IMX6SOLOX/e2fsck $tftphost
-	fetch IMX6SOLOX/checksums.md5 $tftphost	
+	fetch "pv" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "resize2fs" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "e2fsck" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
+	fetch "checksums.md5" "https://github.com/ienovbz/AIP/raw/refs/heads/main/"
 fi
 
 cd /mnt/tmp
