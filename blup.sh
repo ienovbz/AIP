@@ -11,8 +11,6 @@ VERSION=2.0
 MMCDEV=/dev/mmcblk3
 UBOOT_ENV_FILE=/mnt/env/uboot.env
 
-#tftphost="https://github.com/ienovbz/AIP/raw/refs/heads/main"
-
 fetch () {
     echo "fetching $1 from $2 ....."
     curl -L -O $2/$1
