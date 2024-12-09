@@ -1,0 +1,7 @@
+ec618880e4278f79cc4e599897220540  core-image-base-albireo.ext4.gz
+8a02156fbddc17682ee87905f95d2cde  SPL-albireo
+f92701aa3b81b7b4345a8c536a98d3d6  u-boot-albireo.img
+0a641af8aaf9914c95f289422b6e7a62  pv
+0606ccf263cfcb2d0e6f54717c7a0473  resize2fs
+c156266d42f9e0f35828db7da74d39f1  e2fsck
+4c4e07c3b1b51d153491290cae42a98a  uboot_version.txt
